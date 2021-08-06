@@ -1,0 +1,17 @@
+[versions]
+crashclaim="1.0.43"
+huskclaims="1.4"
+husktowns="3.0.4"
+lands="7.10.13"
+bentobox="2.0.0-SNAPSHOT"
+towny="0.100.1.0"
+factions="1.6.9.5-U0.6.11"
+
+[libraries]
+crashclaim = { module = "net.crashcraft:CrashClaim", version.ref = "crashclaim" }
+huskclaims = { module = "net.william278.huskclaims:huskclaims-bukkit", version.ref = "huskclaims" }
+husktowns = { module = "net.william278.husktowns:husktowns-bukkit", version.ref = "husktowns" }
+lands = { module = "com.github.angeschossen:LandsAPI", version.ref = "lands" }
+bentobox = { module = "world.bentobox:bentobox", version.ref = "bentobox" }
+towny = { module = "com.palmergames.bukkit.towny:towny", version.ref = "towny" }
+factions = { module = "com.massivecraft:Factions", version.ref = "factions" }
