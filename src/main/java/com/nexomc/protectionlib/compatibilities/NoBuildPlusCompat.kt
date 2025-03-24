@@ -9,22 +9,21 @@ import p1xel.nobuildplus.API.NBPAPI
 import p1xel.nobuildplus.Flags
 import p1xel.nobuildplus.NoBuildPlus
 
-class NoBuildPlusCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
-    val api: NBPAPI = NoBuildPlus.getInstance().api
+class NoBuildPlusCompat(mainPlugin: JavaPlugin, plugin: NoBuildPlus) : ProtectionCompatibility<NoBuildPlus>(mainPlugin, plugin) {
 
     override fun canBuild(player: Player, target: Location): Boolean {
-        return !api.canExecute(target.world.name, Flags.build)
+        return !plugin.api.canExecute(target.world.name, Flags.build)
     }
 
     override fun canBreak(player: Player, target: Location): Boolean {
-        return !api.canExecute(target.world.name, Flags.destroy)
+        return !plugin.api.canExecute(target.world.name, Flags.destroy)
     }
 
     override fun canInteract(player: Player, target: Location): Boolean {
-        return !api.canExecute(target.world.name, Flags.use)
+        return !plugin.api.canExecute(target.world.name, Flags.use)
     }
 
     override fun canUse(player: Player, target: Location): Boolean {
-        return !api.canExecute(target.world.name, Flags.use)
+        return !plugin.api.canExecute(target.world.name, Flags.use)
     }
 }

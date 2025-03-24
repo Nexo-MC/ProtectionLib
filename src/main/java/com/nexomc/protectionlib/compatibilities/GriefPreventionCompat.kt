@@ -10,7 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class GriefPreventionCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
+class GriefPreventionCompat(mainPlugin: JavaPlugin, plugin: GriefPrevention) : ProtectionCompatibility<GriefPrevention>(mainPlugin, plugin) {
     /**
      * @param player Player looking to place a block
      * @param target Place where the player seeks to place a block
@@ -48,8 +48,8 @@ class GriefPreventionCompat(mainPlugin: JavaPlugin, plugin: Plugin) : Protection
     }
 
     private fun checkPermission(player: Player, target: Location, permission: ClaimPermission): Boolean {
-        val playerData: PlayerData = GriefPrevention.instance.dataStore.getPlayerData(player.uniqueId).takeUnless { it.ignoreClaims } ?: return true
-        val claim = GriefPrevention.instance.dataStore.getClaimAt(target, false, playerData.lastClaim) ?: return true
+        val playerData: PlayerData = plugin.dataStore.getPlayerData(player.uniqueId).takeUnless { it.ignoreClaims } ?: return true
+        val claim = plugin.dataStore.getClaimAt(target, false, playerData.lastClaim) ?: return true
 
         playerData.lastClaim = claim
         return claim.checkPermission(player, permission, null) == null

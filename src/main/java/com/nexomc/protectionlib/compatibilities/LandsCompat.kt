@@ -10,7 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class LandsCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
+class LandsCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility<Plugin>(mainPlugin, plugin) {
     val landsIntegration = LandsIntegration.of(mainPlugin)
 
     /**

@@ -9,11 +9,10 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class ResidenceCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
-    val residence: Residence = Residence.getInstance()
+class ResidenceCompat(mainPlugin: JavaPlugin, plugin: Residence) : ProtectionCompatibility<Residence>(mainPlugin, plugin) {
 
     private fun canDo(player: Player, target: Location, flag: Flags?): Boolean {
-        return residence.residenceManager.getByLoc(target)?.permissions?.playerHas(player, flag, false) == true
+        return plugin.residenceManager.getByLoc(target)?.permissions?.playerHas(player, flag, false) == true
     }
 
     /**

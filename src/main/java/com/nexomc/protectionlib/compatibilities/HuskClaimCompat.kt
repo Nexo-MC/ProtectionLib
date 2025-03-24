@@ -1,6 +1,8 @@
 package com.nexomc.protectionlib.compatibilities
 
 import com.nexomc.protectionlib.ProtectionCompatibility
+import net.william278.huskclaims.BukkitHuskClaims
+import net.william278.huskclaims.HuskClaims
 import net.william278.huskclaims.api.BukkitHuskClaimsAPI
 import net.william278.huskclaims.api.HuskClaimsAPI
 import net.william278.huskclaims.libraries.cloplib.operation.OperationType
@@ -9,7 +11,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class HuskClaimCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
+class HuskClaimCompat(mainPlugin: JavaPlugin, plugin: BukkitHuskClaims) : ProtectionCompatibility<BukkitHuskClaims>(mainPlugin, plugin) {
     private val huskClaimsCommon = HuskClaimsAPI.getInstance()
     private val huskClaimsBukkit = BukkitHuskClaimsAPI.getInstance()
 

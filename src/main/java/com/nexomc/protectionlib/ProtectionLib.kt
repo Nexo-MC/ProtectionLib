@@ -20,7 +20,7 @@ import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
 object ProtectionLib {
-    private val compatibilities: MutableSet<ProtectionCompatibility> = ObjectOpenHashSet()
+    private val compatibilities: MutableSet<ProtectionCompatibility<out Plugin>> = ObjectOpenHashSet()
     var debug: Boolean = false
 
     fun init(plugin: JavaPlugin) {
@@ -62,11 +62,10 @@ object ProtectionLib {
         }.onFailure { if (debug) it.printStackTrace() }.getOrDefault(true)
     }
 
-    private fun handleCompatibility(pluginName: String, mainPlugin: JavaPlugin, constructor: CompatibilityConstructor) {
+    private inline fun <reified T : Plugin> handleCompatibility(pluginName: String, mainPlugin: JavaPlugin, constructor: CompatibilityConstructor<T>) {
         runCatching {
-            val plugin = Bukkit.getPluginManager().getPlugin(pluginName) ?: return
+            val plugin = Bukkit.getPluginManager().getPlugin(pluginName) as? T ?: return
             if (pluginName == "Factions" && !checkFactionsCompat()) return
-
             compatibilities.add(constructor.create(mainPlugin, plugin) ?: return@runCatching)
         }.onFailure {
             if (debug) it.printStackTrace()
@@ -82,7 +81,7 @@ object ProtectionLib {
         }.isSuccess
     }
 
-    private fun interface CompatibilityConstructor {
-        fun create(mainPlugin: JavaPlugin, plugin: Plugin): ProtectionCompatibility?
+    private fun interface CompatibilityConstructor<T : Plugin> {
+        fun create(mainPlugin: JavaPlugin, plugin: T): ProtectionCompatibility<T>?
     }
 }

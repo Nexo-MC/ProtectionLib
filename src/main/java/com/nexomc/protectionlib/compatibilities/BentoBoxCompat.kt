@@ -10,8 +10,7 @@ import world.bentobox.bentobox.api.flags.Flag
 import world.bentobox.bentobox.api.user.User
 import world.bentobox.bentobox.lists.Flags
 
-class BentoBoxCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
-    val bentoBox: BentoBox = BentoBox.getInstance()
+class BentoBoxCompat(mainPlugin: JavaPlugin, plugin: BentoBox) : ProtectionCompatibility<BentoBox>(mainPlugin, plugin) {
 
     /**
      * @param player Player looking to place a block
@@ -23,7 +22,7 @@ class BentoBoxCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompati
     }
 
     private fun canDo(player: Player, target: Location, flag: Flag): Boolean {
-        return !bentoBox.iwm.inWorld(target) || bentoBox.islands.getIslandAt(target).map { it.isAllowed(User.getInstance(player), flag) }.orElse(!flag.isSetForWorld(target.world))
+        return !plugin.iwm.inWorld(target) || plugin.islands.getIslandAt(target).map { it.isAllowed(User.getInstance(player), flag) }.orElse(!flag.isSetForWorld(target.world))
     }
 
     /**
@@ -41,7 +40,7 @@ class BentoBoxCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompati
      * @return true if he can interact with the block
      */
     override fun canInteract(player: Player, target: Location): Boolean {
-        return !bentoBox.iwm.inWorld(target) || bentoBox.islands.locationIsOnIsland(player, target)
+        return !plugin.iwm.inWorld(target) || plugin.islands.locationIsOnIsland(player, target)
     }
 
     /**
@@ -50,6 +49,6 @@ class BentoBoxCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompati
      * @return true if he can use the item at the location
      */
     override fun canUse(player: Player, target: Location): Boolean {
-        return !bentoBox.iwm.inWorld(target) || bentoBox.islands.locationIsOnIsland(player, target)
+        return !plugin.iwm.inWorld(target) || plugin.islands.locationIsOnIsland(player, target)
     }
 }

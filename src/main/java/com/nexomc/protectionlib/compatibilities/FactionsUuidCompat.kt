@@ -10,8 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class FactionsUuidCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
-    val factions = FactionsPlugin.getInstance()
+class FactionsUuidCompat(mainPlugin: JavaPlugin, plugin: FactionsPlugin) : ProtectionCompatibility<FactionsPlugin>(mainPlugin, plugin) {
 
     /**
      * @param player Player looking to place a block
@@ -19,7 +18,7 @@ class FactionsUuidCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCom
      * @return true if he can put the block
      */
     override fun canBuild(player: Player, target: Location): Boolean {
-        return !factions.worldUtil().isEnabled(target.world) || FactionsBlockListener.playerCanBuildDestroyBlock(player, target, PermissibleActions.BUILD, false)
+        return !plugin.worldUtil().isEnabled(target.world) || FactionsBlockListener.playerCanBuildDestroyBlock(player, target, PermissibleActions.BUILD, false)
     }
 
     /**
@@ -28,7 +27,7 @@ class FactionsUuidCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCom
      * @return true if he can break the block
      */
     override fun canBreak(player: Player, target: Location): Boolean {
-        return !factions.worldUtil().isEnabled(target.world) || FactionsBlockListener.playerCanBuildDestroyBlock(player, target, PermissibleActions.DESTROY, false)
+        return !plugin.worldUtil().isEnabled(target.world) || FactionsBlockListener.playerCanBuildDestroyBlock(player, target, PermissibleActions.DESTROY, false)
     }
 
     /**
@@ -37,7 +36,7 @@ class FactionsUuidCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCom
      * @return true if he can interact with the block
      */
     override fun canInteract(player: Player, target: Location): Boolean {
-        return !factions.worldUtil().isEnabled(target.world) || FactionsPlayerListener.canUseBlock(player, target.block.type, target, true)
+        return !plugin.worldUtil().isEnabled(target.world) || FactionsPlayerListener.canUseBlock(player, target.block.type, target, true)
     }
 
     /**
@@ -46,6 +45,6 @@ class FactionsUuidCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCom
      * @return true if he can use the item at the location
      */
     override fun canUse(player: Player, target: Location): Boolean {
-        return !factions.worldUtil().isEnabled(target.world) || FactionsPlayerListener.canInteractHere(player, target)
+        return !plugin.worldUtil().isEnabled(target.world) || FactionsPlayerListener.canInteractHere(player, target)
     }
 }

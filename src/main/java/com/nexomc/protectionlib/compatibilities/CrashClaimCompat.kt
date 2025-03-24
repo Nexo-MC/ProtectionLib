@@ -9,8 +9,8 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class CrashClaimCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
-    val crashClaim: CrashClaimAPI = CrashClaimAPI(plugin as CrashClaim)
+class CrashClaimCompat(mainPlugin: JavaPlugin, plugin: CrashClaim) : ProtectionCompatibility<CrashClaim>(mainPlugin, plugin) {
+    val crashClaim: CrashClaimAPI = CrashClaimAPI(plugin)
 
     /**
      * @param player Player looking to place a block
@@ -18,9 +18,8 @@ class CrashClaimCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompa
      * @return true if he can put the block
      */
     override fun canBuild(player: Player, target: Location): Boolean {
-        return crashClaim.getClaim(target) == null ||
-                crashClaim.permissionHelper.bypassManager.isBypass(player.uniqueId) ||
-                crashClaim.getClaim(target).hasPermission(player.uniqueId, target, PermissionRoute.BUILD)
+        return crashClaim.permissionHelper.bypassManager.isBypass(player.uniqueId) ||
+                crashClaim.getClaim(target)?.hasPermission(player.uniqueId, target, PermissionRoute.BUILD) != false
     }
 
     /**
@@ -29,9 +28,8 @@ class CrashClaimCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompa
      * @return true if he can break the block
      */
     override fun canBreak(player: Player, target: Location): Boolean {
-        return crashClaim.getClaim(target) == null ||
-                crashClaim.getPermissionHelper().getBypassManager().isBypass(player.uniqueId) ||
-                crashClaim.getClaim(target).hasPermission(player.uniqueId, target, PermissionRoute.BUILD)
+        return crashClaim.permissionHelper.bypassManager.isBypass(player.uniqueId) ||
+                crashClaim.getClaim(target)?.hasPermission(player.uniqueId, target, PermissionRoute.BUILD) != false
     }
 
     /**
@@ -40,9 +38,8 @@ class CrashClaimCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompa
      * @return true if he can interact with the block
      */
     override fun canInteract(player: Player, target: Location): Boolean {
-        return crashClaim.getClaim(target) == null ||
-                crashClaim.getPermissionHelper().getBypassManager().isBypass(player.uniqueId) ||
-                crashClaim.getClaim(target).hasPermission(player.uniqueId, target, PermissionRoute.INTERACTIONS)
+        return crashClaim.permissionHelper.bypassManager.isBypass(player.uniqueId) ||
+                crashClaim.getClaim(target)?.hasPermission(player.uniqueId, target, PermissionRoute.INTERACTIONS) != false
     }
 
     /**
@@ -51,8 +48,7 @@ class CrashClaimCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompa
      * @return true if he can use the item at the location
      */
     override fun canUse(player: Player, target: Location): Boolean {
-        return crashClaim.getClaim(target) == null ||
-                crashClaim.getPermissionHelper().getBypassManager().isBypass(player.uniqueId) ||
-                crashClaim.getClaim(target).hasPermission(player.uniqueId, target, PermissionRoute.INTERACTIONS)
+        return crashClaim.permissionHelper.bypassManager.isBypass(player.uniqueId) ||
+                crashClaim.getClaim(target)?.hasPermission(player.uniqueId, target, PermissionRoute.INTERACTIONS) != false
     }
 }

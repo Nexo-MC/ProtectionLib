@@ -1,6 +1,7 @@
 package com.nexomc.protectionlib.compatibilities
 
 import com.nexomc.protectionlib.ProtectionCompatibility
+import net.william278.husktowns.BukkitHuskTowns
 import net.william278.husktowns.api.BukkitHuskTownsAPI
 import net.william278.husktowns.api.HuskTownsAPI
 import net.william278.husktowns.libraries.cloplib.operation.OperationType
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class HuskTownsCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
+class HuskTownsCompat(mainPlugin: JavaPlugin, plugin: BukkitHuskTowns) : ProtectionCompatibility<BukkitHuskTowns>(mainPlugin, plugin) {
     private val commonAPI = HuskTownsAPI.getInstance()
     private val bukkitAPI = BukkitHuskTownsAPI.getInstance()
 

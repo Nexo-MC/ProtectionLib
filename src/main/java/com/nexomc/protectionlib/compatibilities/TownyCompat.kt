@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class TownyCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
+class TownyCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility<Plugin>(mainPlugin, plugin) {
     /**
      * @param player Player looking to place a block
      * @param target Place where the player seeks to place a block

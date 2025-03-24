@@ -7,7 +7,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
-class PlotSquaredCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility(mainPlugin, plugin) {
+class PlotSquaredCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility<Plugin>(mainPlugin, plugin) {
     override fun canBuild(player: Player, target: Location): Boolean {
         return target.plotFromLocation()?.isAdded(player.uniqueId) == true
     }
