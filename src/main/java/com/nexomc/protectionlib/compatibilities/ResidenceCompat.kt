@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin
 class ResidenceCompat(mainPlugin: JavaPlugin, plugin: Residence) : ProtectionCompatibility<Residence>(mainPlugin, plugin) {
 
     private fun canDo(player: Player, target: Location, flag: Flags?): Boolean {
-        return plugin.residenceManager.getByLoc(target)?.permissions?.playerHas(player, flag, false) == true
+        return plugin.residenceManager.getByLoc(target)?.permissions?.playerHas(player, flag, false) != false
     }
 
     /**
