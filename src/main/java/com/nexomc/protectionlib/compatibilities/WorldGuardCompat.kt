@@ -19,7 +19,7 @@ class WorldGuardCompat(mainPlugin: JavaPlugin, plugin: WorldGuardPlugin) : Prote
      */
     override fun canBuild(player: Player, target: Location): Boolean {
         val localPlayer = plugin.wrapPlayer(player)
-        return WorldGuard.getInstance().platform.regionContainer.createQuery().testBuild(BukkitAdapter.adapt(target), localPlayer, Flags.BUILD) || hasBypass(player, localPlayer)
+        return WorldGuard.getInstance().platform.regionContainer.createQuery().testBuild(BukkitAdapter.adapt(target), localPlayer, Flags.BLOCK_PLACE) || hasBypass(player, localPlayer)
     }
 
     /**
