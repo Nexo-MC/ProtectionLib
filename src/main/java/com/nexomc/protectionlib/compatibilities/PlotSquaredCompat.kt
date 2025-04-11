@@ -9,11 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class PlotSquaredCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionCompatibility<Plugin>(mainPlugin, plugin) {
     override fun canBuild(player: Player, target: Location): Boolean {
-        return target.plotFromLocation()?.isDenied(player.uniqueId) != false
+        return target.plotFromLocation()?.isDenied(player.uniqueId) != true
     }
 
     override fun canBreak(player: Player, target: Location): Boolean {
-        return target.plotFromLocation()?.isDenied(player.uniqueId) != false
+        return target.plotFromLocation()?.isDenied(player.uniqueId) != true
     }
 
     /**
@@ -22,7 +22,7 @@ class PlotSquaredCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionComp
      * @return true if he can interact with the block
      */
     override fun canInteract(player: Player, target: Location): Boolean {
-        return target.plotFromLocation()?.isDenied(player.uniqueId) != false
+        return target.plotFromLocation()?.isDenied(player.uniqueId) != true
     }
 
     /**
@@ -31,7 +31,7 @@ class PlotSquaredCompat(mainPlugin: JavaPlugin, plugin: Plugin) : ProtectionComp
      * @return true if he can use the item at the location
      */
     override fun canUse(player: Player, target: Location): Boolean {
-        return target.plotFromLocation()?.isDenied(player.uniqueId) != false
+        return target.plotFromLocation()?.isDenied(player.uniqueId) != true
     }
 
     private fun Location.plotFromLocation(): Plot? {
