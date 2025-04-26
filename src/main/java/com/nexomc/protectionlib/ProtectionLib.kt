@@ -21,8 +21,10 @@ import org.bukkit.plugin.java.JavaPlugin
 
 object ProtectionLib {
     private val compatibilities: MutableSet<ProtectionCompatibility<out Plugin>> = ObjectOpenHashSet()
+    @JvmField
     var debug: Boolean = false
 
+    @JvmStatic
     fun init(plugin: JavaPlugin) {
         handleCompatibility("WorldGuard", plugin, ::WorldGuardCompat)
         handleCompatibility("Towny", plugin, ::TownyCompat)
@@ -38,24 +40,28 @@ object ProtectionLib {
         handleCompatibility("NoBuildPlus", plugin, ::NoBuildPlusCompat)
     }
 
+    @JvmStatic
     fun canBuild(player: Player, target: Location): Boolean {
         return runCatching {
             compatibilities.all { it.canBuild(player, target) }
         }.onFailure { if (debug) it.printStackTrace() }.getOrDefault(true)
     }
 
+    @JvmStatic
     fun canBreak(player: Player, target: Location): Boolean {
         return runCatching {
             compatibilities.all { it.canBreak(player, target) }
         }.onFailure { if (debug) it.printStackTrace() }.getOrDefault(true)
     }
 
+    @JvmStatic
     fun canInteract(player: Player, target: Location): Boolean {
         return runCatching {
             compatibilities.all { it.canInteract(player, target) }
         }.onFailure { if (debug) it.printStackTrace() }.getOrDefault(true)
     }
 
+    @JvmStatic
     fun canUse(player: Player, target: Location): Boolean {
         return runCatching {
             compatibilities.all { it.canUse(player, target) }
